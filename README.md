@@ -1,5 +1,7 @@
 # Otvoreni podaci o Arduino razvojnim pločicama
 
+Repozitorij sadrži otvoreni skup podataka o dijelu Arduino razvojnih pločica te nekim njihovim tehničkim karakteristikama i mogućnostima.
+
 ## Licenca
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
@@ -55,3 +57,9 @@ This work is licensed under a
 | low_power | boolean | Dostupan low-power mod? |
 | i2c | cijeli broj | Broj dostupnih I2C sučelja |
 | spi | cijeli broj | Broj dostupnih SPI sučelja |
+
+## CSV i JSON
+
+Exportanje podataka iz baze u navedene oblike izvodi se pokretanjem odgovarajuće *.sql* skripte koja će zatim generirane podatke smjestiti u datoteku na disku čija je pretpostavljena vrijednost `C:\arduino_hardver.csv` odnosno `C:\arduino_hardver.json`, a može se promijeniti u samoj skripti.
+
+[comment]: # (Alternativno može se pozvati direktno alat *psql* s odgovarajućim parametrima za spajanje i autentikaciju )
