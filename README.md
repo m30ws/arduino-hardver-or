@@ -60,6 +60,6 @@ This work is licensed under a
 
 ## CSV i JSON
 
-Exportanje podataka iz baze u navedene oblike izvodi se pokretanjem odgovarajuće *.sql* skripte koja će zatim generirane podatke smjestiti u datoteku na disku čija je pretpostavljena vrijednost `C:\arduino_hardver.csv` odnosno `C:\arduino_hardver.json`, a može se promijeniti u samoj skripti.
+Exportanje podataka iz baze u navedene oblike izvodi se pokretanjem odgovarajuće *.sql* skripte koja će zatim generirane podatke smjestiti u datoteku na disku čija je pretpostavljena vrijednost `C:\arduino_hardver.csv` odnosno `C:\arduino_hardver.json`. Za pisanja na navedena mjesta potrebno je imati odgovarajuće sigurnosne dozvole, a ona se mogu promijeniti u samoj skripti.
 
 [comment]: # (Alternativno može se pozvati direktno alat *psql* s odgovarajućim parametrima za spajanje i autentikaciju )
