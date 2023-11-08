@@ -1,12 +1,45 @@
-model,family_name,sku,microcontroller_name,low_power,i2c,spi,clock_speed,flash_memory,sram,operating_voltage,input_voltage,digital_pins,pwm_pins,analog_in_pins,analog_out_pins,length,width,weight
-Arduino Nano,Nano Family,A000005,ATmega328,false,1,2,16,32,2,5,7-12,22,6,8,0,45,18,7
-Arduino Nano 33 IoT,Nano Family,ABX00027,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,21,14,11,8,1,45,18,5
-Arduino Nano 33 BLE,Nano Family,ABX00030,nRF52840,true,2,4,64,1000,256,3.3,21,14,14,8,0,45,18,5
-Arduino MKR WiFi 1010,MKR Family,ABX00023,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,8,13,7,1,61.5,25,32
-Arduino MKR Zero,MKR Family,ABX00012,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,22,12,7,1,61.5,25,32
-Arduino MKR GSM 1400,MKR Family,MKRGSM1400WANT,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,8,13,7,1,67.64,25,32
-Arduino UNO WiFi Rev2,Classic Family,ABX00021,ATmega4809,true,1,1,16,48,6,5,6-20,14,5,6,0,68.6,53.4,25
-Arduino UNO R3,Classic Family,A000066,ATmega328P,true,1,2,16,32,2,5,7-12,14,6,6,0,68.6,53.4,25
-Arduino Leonardo,Classic Family,A000057,ATmega32u4,false,1,2,16,32,2.5,5,7-12,20,7,12,0,68.6,53.3,20
-Arduino Mega 2560 Rev3,Mega Family,A000067,ATmega2560,false,1,5,16,256,8,5,7-12,54,15,16,0,101.52,53.3,37
-Arduino Due,Mega Family,A000062,AT91SAM3X8E,true,2,6,84,512,96,3.3,7-12,54,12,12,2,101.52,53.3,36
+model,family_name,sku,microcontroller_name,low_power,i2c,spi,clock_speed,flash_memory,sram,operating_voltage,input_voltage,pin_type,pin_count,pin_list,length,width,weight
+Arduino Nano,Nano Family,A000005,ATmega328,false,1,2,16,32,2,5,7-12,digital,22,,45,18,7
+Arduino Nano,Nano Family,A000005,ATmega328,false,1,2,16,32,2,5,7-12,pwm,6,"{3,5,6,9,10,11}",45,18,7
+Arduino Nano,Nano Family,A000005,ATmega328,false,1,2,16,32,2,5,7-12,analogin,8,,45,18,7
+Arduino Nano,Nano Family,A000005,ATmega328,false,1,2,16,32,2,5,7-12,analogout,0,,45,18,7
+Arduino Nano 33 IoT,Nano Family,ABX00027,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,21,digital,14,,45,18,5
+Arduino Nano 33 IoT,Nano Family,ABX00027,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,21,pwm,11,"{2,3,5,6,9,10,11,12,16,17,19}",45,18,5
+Arduino Nano 33 IoT,Nano Family,ABX00027,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,21,analogin,8,,45,18,5
+Arduino Nano 33 IoT,Nano Family,ABX00027,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,21,analogout,1,{A0},45,18,5
+Arduino Nano 33 BLE,Nano Family,ABX00030,nRF52840,true,2,4,64,1000,256,3.3,21,digital,14,,45,18,5
+Arduino Nano 33 BLE,Nano Family,ABX00030,nRF52840,true,2,4,64,1000,256,3.3,21,pwm,14,,45,18,5
+Arduino Nano 33 BLE,Nano Family,ABX00030,nRF52840,true,2,4,64,1000,256,3.3,21,analogin,8,,45,18,5
+Arduino Nano 33 BLE,Nano Family,ABX00030,nRF52840,true,2,4,64,1000,256,3.3,21,analogout,0,,45,18,5
+Arduino MKR WiFi 1010,MKR Family,ABX00023,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,digital,8,,61.5,25,32
+Arduino MKR WiFi 1010,MKR Family,ABX00023,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,pwm,13,"{0,1,2,3,4,5,6,7,8,10,12,18,19}",61.5,25,32
+Arduino MKR WiFi 1010,MKR Family,ABX00023,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,analogin,7,,61.5,25,32
+Arduino MKR WiFi 1010,MKR Family,ABX00023,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,analogout,1,{A0},61.5,25,32
+Arduino MKR Zero,MKR Family,ABX00012,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,digital,22,,61.5,25,32
+Arduino MKR Zero,MKR Family,ABX00012,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,pwm,12,"{0,1,2,3,4,5,6,7,8,10,18,19}",61.5,25,32
+Arduino MKR Zero,MKR Family,ABX00012,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,analogin,7,,61.5,25,32
+Arduino MKR Zero,MKR Family,ABX00012,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,analogout,1,{A0},61.5,25,32
+Arduino MKR GSM 1400,MKR Family,MKRGSM1400WANT,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,digital,8,,67.64,25,32
+Arduino MKR GSM 1400,MKR Family,MKRGSM1400WANT,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,pwm,13,"{0,1,2,3,4,5,6,7,8,10,12,18,19}",67.64,25,32
+Arduino MKR GSM 1400,MKR Family,MKRGSM1400WANT,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,analogin,7,,67.64,25,32
+Arduino MKR GSM 1400,MKR Family,MKRGSM1400WANT,SAMD21 Cortex-M0+ 32bit low power ARM MCU,true,6,6,48,256,32,3.3,5,analogout,1,{A0},67.64,25,32
+Arduino UNO WiFi Rev2,Classic Family,ABX00021,ATmega4809,true,1,1,16,48,6,5,6-20,digital,14,,68.6,53.4,25
+Arduino UNO WiFi Rev2,Classic Family,ABX00021,ATmega4809,true,1,1,16,48,6,5,6-20,pwm,5,"{3,5,6,9,10}",68.6,53.4,25
+Arduino UNO WiFi Rev2,Classic Family,ABX00021,ATmega4809,true,1,1,16,48,6,5,6-20,analogin,6,,68.6,53.4,25
+Arduino UNO WiFi Rev2,Classic Family,ABX00021,ATmega4809,true,1,1,16,48,6,5,6-20,analogout,0,,68.6,53.4,25
+Arduino UNO R3,Classic Family,A000066,ATmega328P,true,1,2,16,32,2,5,7-12,digital,14,,68.6,53.4,25
+Arduino UNO R3,Classic Family,A000066,ATmega328P,true,1,2,16,32,2,5,7-12,pwm,6,"{3,5,6,9,10,11}",68.6,53.4,25
+Arduino UNO R3,Classic Family,A000066,ATmega328P,true,1,2,16,32,2,5,7-12,analogin,6,,68.6,53.4,25
+Arduino UNO R3,Classic Family,A000066,ATmega328P,true,1,2,16,32,2,5,7-12,analogout,0,,68.6,53.4,25
+Arduino Leonardo,Classic Family,A000057,ATmega32u4,false,1,2,16,32,2.5,5,7-12,digital,20,,68.6,53.3,20
+Arduino Leonardo,Classic Family,A000057,ATmega32u4,false,1,2,16,32,2.5,5,7-12,pwm,7,"{3,5,6,9,10,11,13}",68.6,53.3,20
+Arduino Leonardo,Classic Family,A000057,ATmega32u4,false,1,2,16,32,2.5,5,7-12,analogin,12,,68.6,53.3,20
+Arduino Leonardo,Classic Family,A000057,ATmega32u4,false,1,2,16,32,2.5,5,7-12,analogout,0,,68.6,53.3,20
+Arduino Mega 2560 Rev3,Mega Family,A000067,ATmega2560,false,1,5,16,256,8,5,7-12,digital,54,,101.52,53.3,37
+Arduino Mega 2560 Rev3,Mega Family,A000067,ATmega2560,false,1,5,16,256,8,5,7-12,pwm,15,"{2,3,4,5,6,7,8,9,10,11,12,13,44,45,46}",101.52,53.3,37
+Arduino Mega 2560 Rev3,Mega Family,A000067,ATmega2560,false,1,5,16,256,8,5,7-12,analogin,16,,101.52,53.3,37
+Arduino Mega 2560 Rev3,Mega Family,A000067,ATmega2560,false,1,5,16,256,8,5,7-12,analogout,0,,101.52,53.3,37
+Arduino Due,Mega Family,A000062,AT91SAM3X8E,true,2,6,84,512,96,3.3,7-12,digital,54,,101.52,53.3,36
+Arduino Due,Mega Family,A000062,AT91SAM3X8E,true,2,6,84,512,96,3.3,7-12,pwm,12,"{2,3,4,5,6,7,8,9,10,11,12,13}",101.52,53.3,36
+Arduino Due,Mega Family,A000062,AT91SAM3X8E,true,2,6,84,512,96,3.3,7-12,analogin,12,,101.52,53.3,36
+Arduino Due,Mega Family,A000062,AT91SAM3X8E,true,2,6,84,512,96,3.3,7-12,analogout,2,"{A0,A1}",101.52,53.3,36
