@@ -37,10 +37,6 @@ This work is licensed under a
 | sram | decimalni broj | Veličina radne memorije (KB) |
 | operating_voltage | decimalni broj | Napon komponenti (V) |
 | input_voltage | varijabilni tekst (5) | Raspon ulaznog napona u pločicu (V) |
-| digital_pins | cijeli broj | Broj digitalnih pinova |
-| pwm_pins | cijeli broj | Broj PWM pinova |
-| analog_in_pins | cijeli broj | Broj ulaznih analognih pinova |
-| analog_out_pins | cijeli broj | Broj izlaznih analognih pinova |
 | length | decimalni broj | Duljina pločice (mm) |
 | width | decimalni broj | Širina pločice (mm) |
 | weight | cijeli broj | Masa pločice (g) |
@@ -57,6 +53,16 @@ This work is licensed under a
 | low_power | boolean | Dostupan low-power mod? |
 | i2c | cijeli broj | Broj dostupnih I2C sučelja |
 | spi | cijeli broj | Broj dostupnih SPI sučelja |
+
+### Pins
+| Property | Data type | Description |
+|----------|-----------|-------------|
+| sku | varijabilni tekst (32) | ID proizvoda |
+| type | varijabilni tekst (16) | Jedan od: <code>"digital"</code>, <code>"pwm"</code>, <code>"analogin"</code>, <code>"analogout"</code> |
+| count | cijeli broj | Broj pinova toga tipa |
+| pin_list | varijabilni tekst (8)[] | Niz s konkretnim pinovima u tekstualnom obliku |
+
+Pinovi unutar <code>pin_list</code> atributa su zapisani kao tekst zato što osim kao brojevi pinovi mogu doći i u analognom obliku npr. <code>A0</code>
 
 ## CSV i JSON
 
