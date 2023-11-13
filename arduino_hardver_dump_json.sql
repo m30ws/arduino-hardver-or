@@ -35,8 +35,6 @@ copy (
 			using(family_id)
 		join public.microcontroller
 			using(microcontroller_id)
-		left join public.pins
-			using (sku)
 	)
 to 'C:/arduino_hardver.json'
 ;
