@@ -30,7 +30,7 @@ This work is licensed under a
 | Property | Data type | Description |
 |----------|-----------|-------------|
 | model | varijabilni tekst (64) | Ime modela pločice |
-| family | cijeli broj | Obitelj pločica |
+| family | cijeli broj | Obitelj pločica (indeks unutar tablice *Family*) |
 | sku | varijabilni tekst (32) | ID proizvoda |
 | clock_speed | cijeli broj | Radni takt (MHz) |
 | flash_memory | cijeli broj | Veličina memorije (KB) |
