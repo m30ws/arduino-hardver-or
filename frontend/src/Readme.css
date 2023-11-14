@@ -1,0 +1,9 @@
+.Readme {
+    text-align: center;
+}
+
+.cclink:visited {
+    border: none;
+    outline: none;
+    -webkit-tap-highlight-color: white;
+}
