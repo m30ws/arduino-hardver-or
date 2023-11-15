@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  min-width: 100vw;
 }
 
 .App-logo {
@@ -39,4 +40,9 @@
 
 .tablica {
   border-radius: 5px;
+}
+
+.hrsep {
+  margin-left: 10px;
+  margin-right: 10px;
 }

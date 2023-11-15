@@ -7,7 +7,7 @@ function Readme() {
         <h2>Općenite informacije</h2>
         <b>Autor:</b> Fran Tomljenović
         <br/>
-        <b>Verzija:</b> 1.0
+        <b>Verzija:</b> 2.0
         <br/>
         <b>Jezik:</b> Engleski
         <br/>   

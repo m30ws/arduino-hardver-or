@@ -1,0 +1,42 @@
+.filterRoot {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-content: flex-start;
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.filterElem {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    max-width: 25vw;
+}
+
+.filterFont {
+    font-family: 'Segoe UI', Calibri, sans-serif;
+    font-size: 12pt;
+}
+
+.filterTitle {
+    font-size: 16pt;
+}
+
+.filterBtn {
+    border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	height: 34px;
+	width: 32px;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
