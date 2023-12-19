@@ -124,6 +124,7 @@ function Filter({schema, data, applyFilter, dlFilteredJson, dlFilteredCsv}) {
             <div className="filterElem">
                 <button
                     className="filterFont"
+                    style={{width: "100%"}}
                     onClick={() => {
                         let txt = fltTxt;
                         if (txt === "yes") txt = true;
@@ -135,6 +136,7 @@ function Filter({schema, data, applyFilter, dlFilteredJson, dlFilteredCsv}) {
                 </button>
                 <button
                     className="filterFont"
+                    style={{width: "100%"}}
                     onClick={() => {
                         let txt = fltTxt;
                         if (txt === "yes") txt = true;

@@ -7,6 +7,7 @@ import App from './App';
 import DocumentMeta from 'react-document-meta';
 import Readme from './Readme';
 
+const BACKEND = process.env.REACT_APP_BACKEND_URL;
 
 const meta = {
   title: 'Otvoreni podaci o Arduino razvojnim pločicama',
@@ -22,8 +23,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <DocumentMeta {...meta} />
-    <Readme />
+    <Readme backend={BACKEND}/>
     <hr className="mainhr" />
-    <App />
+    <App backend={BACKEND} />
   </React.StrictMode>
 );

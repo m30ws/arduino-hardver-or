@@ -5,7 +5,7 @@
 -- Dumped from database version 13.2
 -- Dumped by pg_dump version 13.2
 
--- Started on 2023-11-08 18:34:37
+-- Started on 2023-12-18 22:03:34
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 200 (class 1259 OID 18728)
+-- TOC entry 200 (class 1259 OID 18812)
 -- Name: board; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -46,7 +46,7 @@ CREATE TABLE public.board (
 ALTER TABLE public.board OWNER TO postgres;
 
 --
--- TOC entry 201 (class 1259 OID 18731)
+-- TOC entry 201 (class 1259 OID 18815)
 -- Name: family; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -59,7 +59,31 @@ CREATE TABLE public.family (
 ALTER TABLE public.family OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 18734)
+-- TOC entry 204 (class 1259 OID 18885)
+-- Name: family_familyid_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.family_familyid_seq
+    START WITH 4
+    INCREMENT BY 1
+    MINVALUE 4
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.family_familyid_seq OWNER TO postgres;
+
+--
+-- TOC entry 3012 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: family_familyid_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.family_familyid_seq OWNED BY public.family.family_id;
+
+
+--
+-- TOC entry 202 (class 1259 OID 18818)
 -- Name: microcontroller; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -75,7 +99,7 @@ CREATE TABLE public.microcontroller (
 ALTER TABLE public.microcontroller OWNER TO postgres;
 
 --
--- TOC entry 203 (class 1259 OID 18771)
+-- TOC entry 203 (class 1259 OID 18821)
 -- Name: pins; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -90,7 +114,15 @@ CREATE TABLE public.pins (
 ALTER TABLE public.pins OWNER TO postgres;
 
 --
--- TOC entry 2999 (class 0 OID 18728)
+-- TOC entry 2863 (class 2604 OID 18887)
+-- Name: family family_id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.family ALTER COLUMN family_id SET DEFAULT nextval('public.family_familyid_seq'::regclass);
+
+
+--
+-- TOC entry 3002 (class 0 OID 18812)
 -- Dependencies: 200
 -- Data for Name: board; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -111,7 +143,7 @@ Arduino Due	3	A000062	7	84	512	96	3.3	7-12	101.52	53.3	36
 
 
 --
--- TOC entry 3000 (class 0 OID 18731)
+-- TOC entry 3003 (class 0 OID 18815)
 -- Dependencies: 201
 -- Data for Name: family; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -121,11 +153,12 @@ COPY public.family (family_id, family_name) FROM stdin;
 1	MKR Family
 2	Classic Family
 3	Mega Family
+6	testfam2
 \.
 
 
 --
--- TOC entry 3001 (class 0 OID 18734)
+-- TOC entry 3004 (class 0 OID 18818)
 -- Dependencies: 202
 -- Data for Name: microcontroller; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -143,7 +176,7 @@ COPY public.microcontroller (microcontroller_id, microcontroller_name, low_power
 
 
 --
--- TOC entry 3002 (class 0 OID 18771)
+-- TOC entry 3005 (class 0 OID 18821)
 -- Dependencies: 203
 -- Data for Name: pins; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -197,7 +230,16 @@ A000062	analogout	2	{A0,A1}
 
 
 --
--- TOC entry 2862 (class 2606 OID 18738)
+-- TOC entry 3013 (class 0 OID 0)
+-- Dependencies: 204
+-- Name: family_familyid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.family_familyid_seq', 7, true);
+
+
+--
+-- TOC entry 2865 (class 2606 OID 18828)
 -- Name: family family_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -206,7 +248,7 @@ ALTER TABLE ONLY public.family
 
 
 --
--- TOC entry 2864 (class 2606 OID 18740)
+-- TOC entry 2867 (class 2606 OID 18830)
 -- Name: microcontroller microcontroller_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -215,7 +257,7 @@ ALTER TABLE ONLY public.microcontroller
 
 
 --
--- TOC entry 2866 (class 2606 OID 18778)
+-- TOC entry 2869 (class 2606 OID 18832)
 -- Name: pins pins_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -224,7 +266,7 @@ ALTER TABLE ONLY public.pins
 
 
 --
--- TOC entry 2867 (class 2606 OID 18741)
+-- TOC entry 2870 (class 2606 OID 18833)
 -- Name: board family_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -233,7 +275,7 @@ ALTER TABLE ONLY public.board
 
 
 --
--- TOC entry 2868 (class 2606 OID 18746)
+-- TOC entry 2871 (class 2606 OID 18838)
 -- Name: board microcontroller_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -241,7 +283,7 @@ ALTER TABLE ONLY public.board
     ADD CONSTRAINT microcontroller_id FOREIGN KEY (microcontroller_id) REFERENCES public.microcontroller(microcontroller_id) NOT VALID;
 
 
--- Completed on 2023-11-08 18:34:37
+-- Completed on 2023-12-18 22:03:35
 
 --
 -- PostgreSQL database dump complete

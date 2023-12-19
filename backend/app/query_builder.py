@@ -26,20 +26,24 @@ def make_query_json(field, value):
 		whole_cond += r" microcontroller_name ILIKE %s OR low_power::text ILIKE %s::text OR i2c::text ILIKE %s::text OR spi::text ILIKE %s::text "
 
 	elif field == f'clock_speed':
-		whole_params += [int(value)]
-		whole_cond += r" clock_speed = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" clock_speed::text ILIKE %s::text "
+		# whole_cond += r" clock_speed = %s "
 
 	elif field == f'flash_memory':
-		whole_params += [int(value)]
-		whole_cond += r" flash_memory = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" flash_memory::text ILIKE %s::text "
+		# whole_cond += r" flash_memory = %s "
 
 	elif field == f'sram':
-		whole_params += [float(value)]
-		whole_cond += r" sram = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" sram::text ILIKE %s::text "
+		# whole_cond += r" sram = %s "
 
 	elif field == f'operating_voltage':
-		whole_params += [float(value)]
-		whole_cond += r" operating_voltage = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" operating_voltage::text ILIKE %s::text "
+		# whole_cond += r" operating_voltage = %s "
 
 	elif field == f'input_voltage':
 		whole_params += [f"%{value}%"]
@@ -50,16 +54,19 @@ def make_query_json(field, value):
 		pins_cond += r" type ILIKE %s OR count::text ILIKE %s::text or %s ILIKE ANY(pin_list) "
 
 	elif field == f'length':
-		whole_params += [float(value)]
-		whole_cond += r" length = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" length::text ILIKE %s::text "
+		# whole_cond += r" length = %s "
 
 	elif field == f'width':
-		whole_params += [float(value)]
-		whole_cond += r" width = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" width::text ILIKE %s::text "
+		# whole_cond += r" width = %s "
 
 	elif field == f'weight':
-		whole_params += [float(value)]
-		whole_cond += r" weight = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" weight::text ILIKE %s::text "
+		# whole_cond += r" weight = %s "
 
 
 	if whole_cond != "": whole_cond = f"WHERE {whole_cond}"
@@ -95,20 +102,24 @@ def make_query_csv(field, value):
 		whole_cond += r" microcontroller_name ILIKE %s OR low_power::text ILIKE %s::text OR i2c::text ILIKE %s::text OR spi::text ILIKE %s::text "
 
 	elif field == f'clock_speed':
-		whole_params += [int(value)]
-		whole_cond += r" clock_speed = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" clock_speed::text ILIKE %s::text "
+		# whole_cond += r" clock_speed = %s "
 
 	elif field == f'flash_memory':
-		whole_params += [int(value)]
-		whole_cond += r" flash_memory = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" flash_memory::text ILIKE %s::text "
+		# whole_cond += r" flash_memory = %s "
 
 	elif field == f'sram':
-		whole_params += [float(value)]
-		whole_cond += r" sram = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" sram::text ILIKE %s::text "
+		# whole_cond += r" sram = %s "
 
 	elif field == f'operating_voltage':
-		whole_params += [float(value)]
-		whole_cond += r" operating_voltage = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" operating_voltage::text ILIKE %s::text "
+		# whole_cond += r" operating_voltage = %s "
 
 	elif field == f'input_voltage':
 		whole_params += [f"%{value}%"]
@@ -119,16 +130,19 @@ def make_query_csv(field, value):
 		whole_cond += r" type ILIKE %s OR count::text ILIKE %s::text or %s ILIKE ANY(pin_list) "
 
 	elif field == f'length':
-		whole_params += [float(value)]
-		whole_cond += r" length = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" length::text ILIKE %s::text "
+		# whole_cond += r" length = %s "
 
 	elif field == f'width':
-		whole_params += [float(value)]
-		whole_cond += r" width = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" width::text ILIKE %s::text "
+		# whole_cond += r" width = %s "
 
 	elif field == f'weight':
-		whole_params += [float(value)]
-		whole_cond += r" weight = %s "
+		whole_params += [f"%{value}%"]
+		whole_cond += r" weight::text ILIKE %s::text "
+		# whole_cond += r" weight = %s "
 
 
 	if whole_cond != "": whole_cond = f"WHERE {whole_cond}"

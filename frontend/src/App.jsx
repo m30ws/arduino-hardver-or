@@ -4,9 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import Filter from './Filter'
 
-function App() {
-  const BACKEND = 'http://localhost:5002';
-
+function App({backend}) {
+  const BACKEND = backend;
   const [schema, setSchema] = useState();
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
@@ -54,10 +53,11 @@ function App() {
     })
 
     // Acquire json data
-    fetch(`${BACKEND}/get-full-json`)
+    fetch(`${BACKEND}/download-json`)
     .then((resp) => {
       resp.json().then((jsn) => {
-        setData(jsn.data);
+        // setData(jsn.data);
+        setData(jsn);
       })
     })
   }

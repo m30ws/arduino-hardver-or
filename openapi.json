@@ -1,0 +1,672 @@
+{
+	"openapi": "3.1.0",
+	"info": {
+		"title": "Arduino Hardver API",
+		"version": "3.0",
+		"contact": {
+			"name": "Fran Tomljenovic"
+		},
+		"license": {
+			"name": "CC BY 4.0 ",
+			"url": "https://creativecommons.org/licenses/by/4.0/"
+		}
+	},
+
+	"servers": [
+		{
+			"description": "Dev server",
+			"url": "http://localhost:5002"
+		}
+	],
+
+	"paths": {
+		"/download-json": {
+			"get": {
+				"description": "Retrieves whole dataset",
+				"tags": ["dataset"],
+				"operationId": "download_json",
+				"responses": {
+					"200": {
+						"description": "Successful retrieval",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "schema.json#"
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Cannot retrieve dataset",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Service Unavailable"},
+											"message": {"const": "Cannot fetch json data at this time"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/microcontroller": {
+			"get": {
+				"description": "Retrieves list of all microcontrollers",
+				"tags": ["microcontroller"],
+				"operationId": "microcontroller_get_all",
+				"responses": {
+					"200": {
+						"description": "Successful retrieval",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {"const": "OK"},
+										"message": {"const": "Operation successful"},
+										"response": {
+											"type": "array",
+											"items": {
+												"$ref": "schema.json#/items/properties/microcontroller"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Cannot retrieve microcontrollers",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Service Unavailable"},
+											"message": {"const": "Cannot fetch microcontroller(s) at this time"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/microcontroller/{microcontroller_name}": {
+			"get": {
+				"description": "Retrieves specific microcontroller",
+				"tags": ["microcontroller"],
+				"operationId": "microcontroller_get_byname",
+				"parameters": [
+					{
+						"name": "microcontroller_name",
+						"description": "Name of microcontroller",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful retrieval",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"status": {"const": "OK"},
+										"message": {"const": "Operation successful"},
+										"response": {
+											"$ref": "schema.json#/items/properties/microcontroller"
+										}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Microcontroller name doesn't exist",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Not Found"},
+											"message": {"const": "Microcontroller name doesn't exist"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Cannot retrieve microcontroller",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Service Unavailable"},
+											"message": {"const": "Cannot fetch microcontroller at this time"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			"put": {
+				"description": "Updates specific microcontroller using name",
+				"tags": ["microcontroller"],
+				"operationId": "microcontroller_put_byname",
+				"parameters": [
+					{
+						"name": "microcontroller_name",
+						"description": "Name of microcontroller",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Resource updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "OK"},
+											"message": {"const": "Resource updated"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No changes",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "No Content"},
+											"message": {"const": "Resource unchanged"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid data provided",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Bad Request"},
+											"message": {"const": "Invalid data provided"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Cannot retrieve microcontroller",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Service Unavailable"},
+											"message": {"const": "Cannot PUT microcontroller at this time"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/microcontroller/{microcontroller_id}": {
+			"put": {
+				"description": "Updates specific microcontroller using ID",
+				"tags": ["microcontroller"],
+				"operationId": "microcontroller_put_byid",
+				"parameters": [
+					{
+						"name": "microcontroller_id",
+						"description": "ID of microcontroller",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Resource updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "OK"},
+											"message": {"const": "Resource updated"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"204": {
+						"description": "No changes",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "No Content"},
+											"message": {"const": "Resource unchanged"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid data provided",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Bad Request"},
+											"message": {"const": "Invalid data provided"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Cannot retrieve microcontroller",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Service Unavailable"},
+											"message": {"const": "Cannot PUT microcontroller at this time"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/family": {
+			"post": {
+				"description": "Creates a new microcontroller family",
+				"tags": ["family"],
+				"operationId": "family_create",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"family_name": {"type": "string", "examples": ["GSM Family"]}
+								}
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"201": {
+						"description": "Resource created",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Created"},
+											"message": {"const": "Resource created"},
+											"response": {
+												"properties": {
+													"family_id": {"type": "integer", "examples": [3]}
+												}
+											}
+									}
+								}
+							}
+						},
+						"links": {
+							"deleteFamily": {
+								"operationId": "family_delete_byid",
+								"parameters": {
+									"family_id": "$response.body#/response/family_id"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid data provided",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Bad Request"},
+											"message": {"const": "Invalid data provided"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/family/{family_id}": {
+			"delete": {
+				"description": "Deletes specific family using ID",
+				"tags": ["family"],
+				"operationId": "family_delete_byid",
+				"parameters": [
+					{
+						"name": "family_id",
+						"description": "ID of family",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "integer"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Resource deleted",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "OK"},
+											"message": {"const": "Resource deleted"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid data provided",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Bad Request"},
+											"message": {"const": "Invalid data provided"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/family/{family_name}": {
+			"delete": {
+				"description": "Deletes specific family using name",
+				"tags": ["family"],
+				"operationId": "family_delete_byname",
+				"parameters": [
+					{
+						"name": "family_name",
+						"description": "Name of family",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Resource deleted",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "OK"},
+											"message": {"const": "Resource deleted"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Invalid data provided",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Bad Request"},
+											"message": {"const": "Invalid data provided"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/pins/{sku}": {
+			"get": {
+				"description": "Retrieves list of all pins for specified SKU",
+				"tags": ["pins"],
+				"operationId": "pins_get_bysku",
+				"parameters": [
+					{
+						"name": "sku",
+						"description": "SKU of the board",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful retrieval",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "OK"},
+											"message": {"const": "Operation successful"},
+											"response": {
+												"$ref": "schema.json#/items/properties/pins/items"
+											}
+									}
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Pins for that SKU don't exist",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Not Found"},
+											"message": {"const": "Sku doesn't exist"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Cannot retrieve pins",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Service Unavailable"},
+											"message": {"const": "Cannot fetch pins at this time"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+
+		"/pins": {
+			"get": {
+				"description": "Retrieves list of all pins for all boards",
+				"tags": ["pins"],
+				"operationId": "pins_get_all",
+				"responses": {
+					"200": {
+						"description": "Successful retrieval",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "OK"},
+											"message": {"const": "Operation successful"},
+											"response": {
+												"type": "array",
+												"items": {
+													"$ref": "schema.json#/items/properties/pins/items"
+												}
+											}
+									}
+								}
+							}
+						}
+					},
+					"503": {
+						"description": "Cannot retrieve pins",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+											"status": {"const": "Service Unavailable"},
+											"message": {"const": "Cannot fetch pins at this time"},
+											"response": {
+												"properties": {},
+												"additionalProperties": false
+											}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+}
