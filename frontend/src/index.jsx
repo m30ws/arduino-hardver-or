@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 import './index.css';
+
 import App from './App';
-
-import DocumentMeta from 'react-document-meta';
-import Readme from './Readme';
-
-const BACKEND = process.env.REACT_APP_BACKEND_URL;
 
 const meta = {
   title: 'Otvoreni podaci o Arduino razvojnim pločicama',
@@ -22,9 +20,17 @@ const meta = {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <DocumentMeta {...meta} />
-    <Readme backend={BACKEND}/>
-    <hr className="mainhr" />
-    <App backend={BACKEND} />
+    <Auth0Provider
+      domain={process.env.REACT_APP_AUTH0_DOMAIN}
+      clientId={process.env.REACT_APP_AUTH0_CLIENTID}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      }}
+    >
+      <BrowserRouter basename="/">
+        <App meta={meta}/>
+      </BrowserRouter>
+    </Auth0Provider>
   </React.StrictMode>
 );

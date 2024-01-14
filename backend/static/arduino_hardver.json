@@ -464,7 +464,7 @@
         "microcontroller": {
             "microcontroller_name": "ATmega2560",
             "low_power": false,
-            "i2c": 1,
+            "i2c": 2,
             "spi": 5
         },
         "clock_speed": 16,

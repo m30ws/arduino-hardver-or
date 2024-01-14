@@ -20,7 +20,7 @@ This work is licensed under a
 
 **Autor:** Fran Tomljenović
 
-**Verzija:** 3.0
+**Verzija:** 4.0
 
 **Jezik:** Engleski
 

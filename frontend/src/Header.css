@@ -1,0 +1,63 @@
+.navBar {
+    /* text-align: center; */
+    display: flex;
+    /* flex-direction: row;
+    justify-content: space-around;
+    just */
+}
+
+.navBar * {
+    text-align: center;
+    width: fit-content;
+
+    margin-left: 1vw;
+    /* margin-right: 1vw; */
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.navlink {
+    cursor: pointer;
+
+    text-decoration: none;
+
+    font-family: 'Calibri';
+    font-size: 2.5vh;
+    font-weight: 500;
+    /* color: inherit; */
+    
+    /* border-width: 5px;
+    border-style: solid;
+    border-radius: 10px;
+    border-color: none; */
+    border-radius: 10px;
+    
+    border-width: 0px;
+    border-style: outset;
+
+    /* cursor: default; */
+
+    background-color: rgb(149, 80, 206);
+    color: whitesmoke;
+
+    padding: 5px 10px;
+}
+
+/* .navBar Link {
+    width: fit-content;
+    height: fit-content;
+
+    margin-left: 5vw;
+    margin-right: 5vw;
+
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+
+    border-width: 2px;
+} */
+
+/* .cclink:visited {
+    border: none;
+    outline: none;
+    -webkit-tap-highlight-color: white;
+} */

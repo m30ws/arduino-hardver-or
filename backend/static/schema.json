@@ -1,6 +1,6 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://github.com/m30ws/arduino-hardver-or/blob/v3.0/backend/static/schema.json",
+	"$id": "https://github.com/m30ws/arduino-hardver-or/blob/v4.0/backend/static/schema.json",
 	"title": "Arduino hardver",
 	"description": "Otvoreni podaci o Arduino razvojnim plocicama",
 	"type": "array",

@@ -3,33 +3,32 @@
 # usage: run <mode>
 # 
 # Modes:
-# - debug
+# - dev
 # - production|prod
 # 
+
 $envfile = "./.env"
 
-./DotEnvLoad.ps1 $envfile -Remove #-Verbose
-./DotEnvLoad.ps1 $envfile #-Verbose
+./DotEnvLoad.ps1 $envfile -Remove # -Verbose
+./DotEnvLoad.ps1 $envfile # -Verbose
 
-$mainfile = "main"
-$app = "app"
-$fullapp = "$($mainfile):$($app)"
+# $mainfile = "main"
+# $app = "app"
+# $fullapp = "$($mainfile):$($app)"
 
 # Set defaults
-# $env:FLASKPORT = If($env:FLASKPORT){$env:FLASKPORT}else{ "5555" }
+# $env:FLASKPORT = If($env:FLASKPORT){$env:FLASKPORT}else{"5555"}
 
 Set-Location "./app"
 
 $myenv = $args[0]
-If ($myenv -eq "debug") {
-	# Run flask dev server
-	#python "$mainfile.py"
-	python server.py
+If ($myenv -eq "dev") {
+	echo "Starting Flask dev server..."
+	python main.py
 } else {
 	# 'prod' or 'production'
-	# Run waitress WSGI server
-#	waitress-serve --host=0.0.0.0 --port=$env:FLASKPORT $fullapp
-	echo Nothing.
+	echo "Starting CherryPy production server..."
+	python server.py
 }
 
 Set-Location ..

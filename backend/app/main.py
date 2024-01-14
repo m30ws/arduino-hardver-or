@@ -16,6 +16,38 @@ import os
 # from dotenv import load_dotenv
 # load_dotenv()
 
+from urllib.request import urlopen
+from authlib.oauth2.rfc7523 import JWTBearerTokenValidator
+from authlib.jose.rfc7517.jwk import JsonWebKey
+from authlib.integrations.flask_oauth2 import ResourceProtector
+
+class Auth0JWTBearerTokenValidator(JWTBearerTokenValidator):
+	""" """
+	def __init__(self, domain, audience):
+		""" """
+		issuer = f"https://{domain}/"
+		jsonurl = urlopen(f"{issuer}.well-known/jwks.json")
+		public_key = JsonWebKey.import_key_set(
+			json.loads(jsonurl.read())
+		)
+		super(Auth0JWTBearerTokenValidator, self).__init__(
+			public_key
+		)
+		self.claims_options = {
+			"exp": {"essential": True},
+			"aud": {"essential": True, "value": audience},
+			"iss": {"essential": True, "value": issuer},
+		}
+
+require_auth = ResourceProtector()
+validator = Auth0JWTBearerTokenValidator(
+	f"{os.getenv('AUTH0_DOMAIN')}",
+	f"{os.getenv('AUTH0_AUDIENCE')}"
+)
+
+require_auth.register_token_validator(validator)
+
+
 app = Flask(__name__)#, static_folder=None)
 
 STATIC_DIR = f'{app.root_path}/../static'
@@ -72,7 +104,10 @@ def query(qu, *params):
 		except psycopg2.ProgrammingError:
 			return None, 1
 		finally:
-			dbase.commit()
+			try:
+				dbase.commit()
+			except Exception as ex:
+				logg(f"Warning :: {ex}")
 
 	try:
 		return query_(qu, *params)
@@ -177,8 +212,9 @@ def db_generate_json():
 		return [], 1
 
 
-@app.route("/filter-download-json", methods=['POST'])
-# @fix_empty_body()
+# @app.route("/filter-download-json", methods=['POST'])
+@app.route("/boards/filtered/json", methods=['POST'])
+@app.route("/boards/filtered", methods=['POST'])
 def filter_download_json():
 	""" """
 
@@ -240,7 +276,8 @@ def filter_download_json():
 			msg="Cannot filter at this time")
 
 
-@app.route("/filter-download-csv", methods=['POST'])
+# @app.route("/filter-download-csv", methods=['POST'])
+@app.route("/boards/filtered/csv", methods=['POST'])
 def filter_download_csv():
 	""" """
 	data = json_get() # request.json
@@ -300,9 +337,12 @@ def filter_download_csv():
 
 def save_json_public(dat):
 	""" """
-	with open(JSON_FILE_OUT, 'w') as fp:
+	# with open(JSON_FILE_OUT, 'w') as fp:
+	# 	fp.write(json.dumps(dat, indent=4)) # fp.write(dat)
+	# logg(f"Saved json data at {JSON_FILE_OUT}")
+	with open(JSON_STATIC, 'w') as fp:
 		fp.write(json.dumps(dat, indent=4)) # fp.write(dat)
-	logg(f"Saved json data at {JSON_FILE_OUT}")
+	logg(f"Saved json data at {JSON_STATIC}")
 
 
 def format_csv_resp(sch, rows):
@@ -358,9 +398,12 @@ def db_generate_csv():
 
 def save_csv_public(dat):
 	""" """
-	with open(CSV_FILE_OUT, 'w') as fp:
+	# with open(CSV_FILE_OUT, 'w') as fp:
+	# 	fp.write('\n'.join(dat))
+	# logg(f"Saved csv data at {CSV_FILE_OUT}")
+	with open(CSV_STATIC, 'w') as fp:
 		fp.write('\n'.join(dat))
-	logg(f"Saved csv data at {CSV_FILE_OUT}")
+	logg(f"Saved csv data at {CSV_STATIC}")
 
 
 @app.route("/")
@@ -418,7 +461,38 @@ def get_openapi():
 # 	except Exception as ex:
 # 		logg(f'{ex}')
 
-@app.route("/download-json", methods=['GET'])
+
+@app.route("/snapshot-database", methods=['GET'])
+@require_auth("update:snapshot_database")
+def snapshot_db():
+	""" """
+	try:
+		dat, stat = db_generate_json()
+		if stat == 0: # Ok
+			save_json_public(dat)
+		else:
+			return fmt_response(503,
+				msg="Unable to generate snapshot at this time")
+
+		dat, stat = db_generate_csv()
+		if stat == 0: # Ok
+			save_csv_public(dat)
+		else:
+			return fmt_response(503,
+				msg="Unable to generate snapshot at this time")
+
+		return fmt_response(200,
+			msg="Generated snapshots")
+
+	except Exception as ex:
+		logg(f'{ex}')
+		return fmt_response(503,
+			msg="Unable to generate snapshot at this time")
+
+
+# @app.route("/download-json", methods=['GET'])
+@app.route("/boards/json", methods=['GET'])
+@app.route("/boards", methods=['GET'])
 def download_json():
 	""" """
 	try:
@@ -437,7 +511,8 @@ def download_json():
 			msg="Cannot fetch json data at this time")
 
 
-@app.route("/download-csv", methods=['GET'])
+# @app.route("/download-csv", methods=['GET'])
+@app.route("/boards/csv", methods=['GET'])
 def download_csv():
 	""" """
 	try:
@@ -455,8 +530,8 @@ def download_csv():
 			msg="Cannot fetch csv data at this time")
 
 
-@app.route("/microcontroller/<microcontroller_name>", methods=['GET'])
-@app.route("/microcontroller", methods=['GET'])
+@app.route("/microcontrollers/<microcontroller_name>", methods=['GET'])
+@app.route("/microcontrollers", methods=['GET'])
 def get_microcontroller(microcontroller_name=None):
 	""" """
 	q = """
@@ -498,8 +573,8 @@ def get_microcontroller(microcontroller_name=None):
 
 
 # PUT
-@app.route("/microcontroller/<int:microcontroller_id>", methods=['PUT'])
-@app.route("/microcontroller/<microcontroller_name>", methods=['PUT'])
+@app.route("/microcontrollers/<int:microcontroller_id>", methods=['PUT'])
+@app.route("/microcontrollers/<microcontroller_name>", methods=['PUT'])
 def microcontroller_put(microcontroller_id=None, microcontroller_name=None):
 	""" """
 	if microcontroller_name is None and microcontroller_id is None:
@@ -631,7 +706,7 @@ def get_pins(sku=None):
 
 
 # POST
-@app.route("/family", methods=['POST'])
+@app.route("/families", methods=['POST'])
 def family_create():
 	""" """
 	data = json_get() or dict(request.form)
@@ -669,14 +744,14 @@ def family_create():
 		})
 
 
-@app.route("/family", methods=['GET']) ###
+@app.route("/families", methods=['GET']) ###
 def family_get():
 	dbresp = query(""" select json_agg(json_build_object('family_id', family_id, 'family_name', family_name)) from family """)
 	return fmt_response(200, resp=dbresp[0][0][0])
 
 # DELETE
-@app.route("/family/<int:family_id>", methods=['DELETE'])
-@app.route("/family/<family_name>", methods=['DELETE'])
+@app.route("/families/<int:family_id>", methods=['DELETE'])
+@app.route("/families/<family_name>", methods=['DELETE'])
 def family_delete(family_name=None, family_id=None):
 	""" """
 	q = """
